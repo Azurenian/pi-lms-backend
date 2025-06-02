@@ -13,6 +13,7 @@ import { Media } from './collections/Media'
 import { Courses } from './collections/Courses'
 import { Lessons } from './collections/Lessons'
 import { Enrollments } from './collections/Enrollments'
+import { Lesson_Generator } from './collections/Lesson_Generator'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -24,7 +25,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Courses, Lessons, Enrollments],
+  collections: [Users, Media, Courses, Lessons, Enrollments, Lesson_Generator],
   editor: lexicalEditor({
 	features: [
     ...defaultEditorFeatures,
