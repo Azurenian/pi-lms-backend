@@ -72,7 +72,6 @@ export interface Config {
     courses: Course;
     lessons: Lesson;
     enrollments: Enrollment;
-    'lesson-generator': LessonGenerator;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -84,7 +83,6 @@ export interface Config {
     courses: CoursesSelect<false> | CoursesSelect<true>;
     lessons: LessonsSelect<false> | LessonsSelect<true>;
     enrollments: EnrollmentsSelect<false> | EnrollmentsSelect<true>;
-    'lesson-generator': LessonGeneratorSelect<false> | LessonGeneratorSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -218,47 +216,6 @@ export interface Enrollment {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "lesson-generator".
- */
-export interface LessonGenerator {
-  id: number;
-  title: string;
-  description?: string | null;
-  subject: string;
-  gradeLevel?: string | null;
-  objectives?:
-    | {
-        objective: string;
-        id?: string | null;
-      }[]
-    | null;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  resources?:
-    | {
-        resource?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  createdBy: number | User;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -283,10 +240,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'enrollments';
         value: number | Enrollment;
-      } | null)
-    | ({
-        relationTo: 'lesson-generator';
-        value: number | LessonGenerator;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -402,32 +355,6 @@ export interface EnrollmentsSelect<T extends boolean = true> {
   course?: T;
   enrolledAt?: T;
   status?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "lesson-generator_select".
- */
-export interface LessonGeneratorSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  subject?: T;
-  gradeLevel?: T;
-  objectives?:
-    | T
-    | {
-        objective?: T;
-        id?: T;
-      };
-  content?: T;
-  resources?:
-    | T
-    | {
-        resource?: T;
-        id?: T;
-      };
-  createdBy?: T;
   updatedAt?: T;
   createdAt?: T;
 }
